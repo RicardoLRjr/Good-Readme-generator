@@ -1,14 +1,16 @@
 var inquirer = require("inquirer");
-var fs = require("fs")
+var fs = require("fs");
+var axios = require("axios")
 
-
-const gitHubName = ""
-
-// add in axios call for github username , use to reach profile and badge
-// use try/catch data for call to github?
 const questions = [
-{   type: "input",
-    message: "What is your name?",
+{
+    type: "input",
+    message: "Enter your GitHub username:",
+    name: "username"
+},
+{   
+    type: "input",
+    message: "What is your real name?",
         name: "personName",
     validate: function validateFirstName(name){
         return name !== '';
@@ -45,7 +47,6 @@ const questions = [
         message: "What license is your project working under?",
         name: "license"
       },
-  
       {
           type: "input",
         message: "Who contributed to this project?",
@@ -63,11 +64,18 @@ const questions = [
       },
 ];
 
-
-inquirer.prompt(questions).then(({projectName, personName, 
+inquirer.prompt(questions).then(({username, projectName, personName, 
     projectDescription, installation, usage,
     contributingAuthors, license, tests, miscellaneous}) => {
-        const readme = `# This is the readMe for ${projectName}. \n\n ## Name:\n Hi! I am ${personName}\n\n ## Project Name:\n ${projectName}\n ## Description:\n ${projectDescription} \n\n ## Installation Instructions:\n ${installation}\n\n ## Usage Instructions:\n ${usage}\n\n ## License:\n ${license} \n\n ## Contributing Authors: \n ${contributingAuthors} \n\n ## Tests:\n ${tests}\n\n ## Miscellaneous:\n ${miscellaneous}`
+const queryUrl =`https://api.github.com/users/${username}/repos?per_page=100`;
+const readme = `# This is the readMe for ${projectName}. \n\n ## Name:\n Hi! I am ${personName}\n\n ## Project Name:\n ${projectName}\n\n ## Description:\n ${projectDescription} \n\n ## Table of Contents: \n # Installation \n # Usage \n # License \n # Contributing Authors \n # Tests \n # Miscellaneous \n\n ## Installation Instructions:\n ${installation}\n\n ## Usage Instructions:\n ${usage}\n\n ## License:\n ${license} \n\n ## Contributing Authors: \n ${contributingAuthors} \n\n ## Tests:\n ${tests}\n\n ## Miscellaneous:\n ${miscellaneous}`;
+axios.get(queryUrl).then(function(res) {
+    const gitHubimage = res.data.map(function(repo) {
+        console.log(repo.name)
+      return repo.name;
+    });
+})
+
 fs.writeFile("GeneratedReadme.md", readme, err => {
           if (err) {
             return console.log(err);
@@ -75,39 +83,6 @@ fs.writeFile("GeneratedReadme.md", readme, err => {
           console.log("Check the readme");
         });
     })
-// fs.appendFile("readme.md", readmeNames, err => { 
-//             if (err) {
-//               return console.log(err);
-//             }
-//             else {
-//                 console.log("Names worked!")
-//             }
-//           });
-// fs.appendFile("readme.md", descriptInstallUse, err => { 
-//         if (err) {
-//             return console.log(err);
-//         }
-//         else {
-//         console.log("Description worked!")
-//     }
-//           });
-// fs.appendFile("readme.md", licenseAuthorTest, err => { 
-//             if (err) {
-//                 return console.log(err);
-//             }
-//             else {
-//             console.log("LAT worked!")
-//         }
-//         });
-// fs.appendFile("readme.md", Misc, err => { 
-//             if (err) {
-//                 return console.log(err);
-//             }
-//             else {
-//             console.log("Misc worked!")
-//         }
-//         });
-//     })
 function init() {
 
 }
