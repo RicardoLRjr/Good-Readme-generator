@@ -74,7 +74,7 @@ const questions = [
 
 inquirer.prompt(questions).then(({projectName, personName, 
     projectDescription, installation, usage,
-    contributingAuthors, license, tests}) => {
+    contributingAuthors, license, tests, Email, miscellaneous}) => {
         const readmeTitle = `This is the readMe for ${projectName} \n\n`;
         const readmeNames = `Name:\n Hi! I am ${personName},\n\n Project Name:\n ${projectName}\n\n`;
         const descriptInstallUse = `Description:\n ${projectDescription}, 
@@ -83,6 +83,8 @@ inquirer.prompt(questions).then(({projectName, personName,
         const licenseAuthorTest = `License:\n ${license}, \n\n 
         Contributing Authors: \n ${contributingAuthors} \n\n
         Tests:\n ${tests} `
+        const emailMisc = `My email is ${Email}\n\n
+        Miscellaneous:\n ${miscellaneous}`
 fs.appendFile("readme.md", readmeTitle, err => {
           if (err) {
             return console.log(err);
@@ -96,7 +98,7 @@ fs.appendFile("readme.md", readmeNames, err => {
             else {
                 console.log("Names worked!")
             }
-          })
+          });
 fs.appendFile("readme.md", descriptInstallUse, err => { 
         if (err) {
             return console.log(err);
@@ -104,13 +106,21 @@ fs.appendFile("readme.md", descriptInstallUse, err => {
         else {
         console.log("Description worked!")
     }
-          })
+          });
 fs.appendFile("readme.md", licenseAuthorTest, err => { 
             if (err) {
                 return console.log(err);
             }
             else {
-            console.log(" worked!")
+            console.log("LAT worked!")
+        }
+        });
+fs.appendFile("readme.md", emailMisc, err => { 
+            if (err) {
+                return console.log(err);
+            }
+            else {
+            console.log("EmailMisc worked!")
         }
         });
     })
