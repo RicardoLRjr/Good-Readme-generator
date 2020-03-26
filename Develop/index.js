@@ -4,7 +4,7 @@ var fs = require("fs")
 
 const gitHubName = ""
 
-
+// add in axios call for github username and email, use to reach profile and badge
 
 const questions = [
 {   type: "input",
