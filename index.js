@@ -57,6 +57,21 @@ const questions = [
         message: "Which tests can you use here?",
         name: "tests"
       },
+    {
+      type: "input",
+      message: "What do you want your badge to say?",
+      name: "badgeName",
+    },
+    {
+        type: "input",
+        message: "What is your project's status?",
+        name: "badgeStatus",
+      },
+      {
+        type: "input",
+        message: "What color do you want your badge to be?",
+        name: "badgeColor",
+      },
       {
           type: "input",
         message: "Any last questions?",
@@ -66,7 +81,7 @@ const questions = [
 
 inquirer.prompt(questions).then(({username, projectName, personName, 
     projectDescription, installation, usage,
-    contributingAuthors, license, tests, miscellaneous}) => {
+    contributingAuthors, license, badgeName, badgeStatus, badgeColor, tests, miscellaneous}) => {
 const queryUrl =`https://api.github.com/users/${username}`;
 
 axios.get(queryUrl).then(function(response) {
@@ -74,11 +89,14 @@ axios.get(queryUrl).then(function(response) {
     console.log(response.data.avatar_url)
       return gitHubimage
     }).then (function() {
-const readme = `# This is the readMe for ${projectName}. \n\n ## Name:\n Hi! I am ${personName}\n\n ## Project Name:\n ${projectName}\n\n ## Description:\n ${projectDescription} \n\n ## Table of Contents: \n # Installation \n # Usage \n # License \n # Contributing Authors \n # Tests \n # Miscellaneous \n\n ## Installation Instructions:\n ${installation}\n\n ## Usage Instructions:\n ${usage}\n\n ## License:\n ${license} \n\n ## Contributing Authors: \n ${contributingAuthors} \n\n ## Tests:\n ${tests}\n\n ## Miscellaneous:\n ${miscellaneous}\n\n\n <img src= ${gitHubimage}>`;
+const readme = `# This is the readMe for ${projectName}. \n\n ## Name:\n Hi! I am ${personName}\n\n ## Project Name:\n ${projectName}\n\n ## Description:\n ${projectDescription} \n\n ## Table of Contents: \n # Installation \n # Usage \n # License \n # Contributing Authors \n # Tests \n # Miscellaneous \n\n ## Installation Instructions:\n ${installation}\n\n ## Usage Instructions:\n ${usage}\n\n ## License:\n ${license} \n\n ## Contributing Authors: \n ${contributingAuthors} \n\n ## Tests:\n ${tests}\n\n ## Miscellaneous:\n ${miscellaneous}\n\n\n Badge:\n https://img.shields.io/badge/${badgeName}-${badgeStatus}-${badgeColor}.svg)(https://shields.io/) \n\n <img src= ${gitHubimage}> `;
 fs.writeFile("GeneratedReadme.md", readme, err => {
           if (err) {
             return console.log(err);
           }
           console.log("Check the readme");
-        })});
+        })}).catch(function(err) {
+            console.log(err);
+          });
     })
+
