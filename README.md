@@ -42,5 +42,7 @@ The template for this readme came from the deployed application!
  img src= https://avatars2.githubusercontent.com/u/60279300?v=4 
 
  Media:
+ 
  readmeDemonstration.gif
+ 
  This gif showcases the functionality of the application. 
