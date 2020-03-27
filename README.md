@@ -1,4 +1,4 @@
-# This is the readMe for my Readme Generator. 
+# Good Readme Generator. 
 
  ## Name:
  Ricardo L. Russ
