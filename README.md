@@ -1,13 +1,13 @@
 # This is the readMe for my Readme Generator. 
 
  ## Name:
- Ricard
+ Ricardo L. Russ
 
  ## Project Name:
  Good Readme Generator
 
  ## Description:
- This generates a readme 
+ This application generates a basic readme, which allows the user to have a basic template to expand their readme. 
 
  ## Table of Contents: 
  # Installation 
@@ -33,13 +33,13 @@
  N/A
 
  ## Miscellaneous:
- Nothing to add here!
+The template for this readme came from the deployed application!
 
 
  Badge:
  https://img.shields.io/badge/Current-Maintained-red.svg)(https://shields.io/) 
 
- <img src= https://avatars2.githubusercontent.com/u/60279300?v=4> 
+ img src= https://avatars2.githubusercontent.com/u/60279300?v=4 
 
  Media:
  readmeDemonstration.gif
