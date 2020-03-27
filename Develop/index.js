@@ -2,6 +2,14 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const axios = require("axios")
 var gitHubimage = ""
+const { BadgeFactory } = require('gh-badges')
+const bf = new BadgeFactory()
+const format = {
+    text: ['build', 'passed'],
+    color: 'green',
+    template: 'flat',
+  }
+const svg = bf.create(format)
 const questions = [
 {
     type: "input",
@@ -74,7 +82,7 @@ axios.get(queryUrl).then(function(response) {
     console.log(response.data.avatar_url)
       return gitHubimage
     }).then (function() {
-const readme = `# This is the readMe for ${projectName}. \n\n ## Name:\n Hi! I am ${personName}\n\n ## Project Name:\n ${projectName}\n\n ## Description:\n ${projectDescription} \n\n ## Table of Contents: \n # Installation \n # Usage \n # License \n # Contributing Authors \n # Tests \n # Miscellaneous \n\n ## Installation Instructions:\n ${installation}\n\n ## Usage Instructions:\n ${usage}\n\n ## License:\n ${license} \n\n ## Contributing Authors: \n ${contributingAuthors} \n\n ## Tests:\n ${tests}\n\n ## Miscellaneous:\n ${miscellaneous}\n\n\n <img src= ${gitHubimage}>`;
+const readme = `# This is the readMe for ${projectName}. \n\n ## Name:\n Hi! I am ${personName}\n\n ## Project Name:\n ${projectName}\n\n ## Description:\n ${projectDescription} \n\n ## Table of Contents: \n # Installation \n # Usage \n # License \n # Contributing Authors \n # Tests \n # Miscellaneous \n\n ## Installation Instructions:\n ${installation}\n\n ## Usage Instructions:\n ${usage}\n\n ## License:\n ${license} \n\n ## Contributing Authors: \n ${contributingAuthors} \n\n ## Tests:\n ${tests}\n\n ## Miscellaneous:\n ${miscellaneous}\n\n\n Badge: ${svg}\n\n <img src= ${gitHubimage}> `;
 fs.writeFile("GeneratedReadme.md", readme, err => {
           if (err) {
             return console.log(err);
